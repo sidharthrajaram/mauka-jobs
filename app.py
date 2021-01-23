@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def splash():
-    return 'Hello, World!'
+    return render_template('splash_a.html')
 
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
@@ -19,6 +19,7 @@ def search():
 @app.route('/results/<query>')
 def results(query=None, advanced=True):
     if query is not None:
+        # breh
         return query
     else:
         return "no query"
