@@ -10,8 +10,8 @@
     Argon Design System by Creative Tim
   </title>
   <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"> -->
 
   <!--HELLO-->
   <!-- Nucleo Icons -->
@@ -24,6 +24,12 @@
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/argon-design-system.css') }}">
   <link href="./assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
   <!--HELLO-->
+
+  <style>
+      body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+  </style>
 </head>
 
 <body class="index-page">
@@ -36,9 +42,9 @@
         <h2 class="display-2 mb-0">Find stuff</h2>
     </div>
     <div>
-        <form action="{{ url_for('search') }}" method="post" style="margin-top: 2em;">
+        <form action="{{ url_for('search') }}" method="post" style="margin-top: 0.5em;">
             <div class="mb-3">
-                <input type="text" class="form-control" name="query" id="query" placeholder="City" required>
+                <input style="font-size: 1.5em;" type="text" class="form-control" name="query" id="query" placeholder="City" required>
             </div>
             <button class="btn btn-primary btn-lg btn-block" type="submit">Search</button>
         </form>

@@ -20,6 +20,7 @@ def search():
 def results(query=None, advanced=True):
     if query is not None:
         # breh
-        return query
+        results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
+        return render_template('results.html', query=query.capitalize(), results=results)
     else:
         return "no query"
