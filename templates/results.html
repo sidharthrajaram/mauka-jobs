@@ -4,26 +4,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <title>
-    Argon Design System by Creative Tim
+    Stuff
   </title>
-  <!--     Fonts and icons     -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"> -->
 
-  <!--HELLO-->
-  <!-- Nucleo Icons -->
-  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <link href="./assets/css/font-awesome.css" rel="stylesheet" />
-  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- CSS Files -->
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/argon-design-system.css') }}">
   <link href="./assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
-  <!--HELLO-->
 
   <style>
       body {
@@ -38,7 +24,7 @@
     <div class="container">
 
         <div>
-            <a href="/" class="btn btn-primary my-2">Back</a>
+            <a href="/" class="btn btn-outline-primary">Back</a>
             <h2 class="display-4 mb-0">Results for {{ query }}</h2>
         </div>
 
@@ -48,12 +34,15 @@
             <div style="margin-bottom: 1.5em;">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h2 class="display-3 mb-0">{{ result }}</h2>
-                        <h5 class="mb-0"><b>54</b> jobs available in your city</h5>
+                        <span class="badge badge-pill badge-primary text-uppercase" style="font-size: 1em;">Rising</span>
+                        <span class="badge badge-pill badge-success text-uppercase" style="font-size: 1em;">Recommended</span>
+                        <span class="badge badge-pill badge-danger text-uppercase" style="font-size: 1em;">Safe</span>
+                        <h2 class="display-2 mb-0">{{ result }}</h2>
+                        <h5 class="mb-0"><b>54</b> jobs available in {{ query }} with average pay of <b>INR 34000</b></h5>
                         <div class="progress-wrapper">
                             <div class="progress-info">
                               <div class="progress-label">
-                                <span style="font-size: 1em;">Popularity</span>
+                                <span style="font-size: 1em;">Demand in your area</span>
                               </div>
                               <div class="progress-percentage">
                                 <span>60%</span>
@@ -63,10 +52,13 @@
                               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
                             </div>
                         </div>
+                        <div style="margin-top: 1em;">
+                            <a href="/explore/{{ query }}/{{ result }}">
+                            <button type="button" class="btn btn-outline-primary">Get started</button>
+                            </a>
+                        </div>
+                        
 
-                        <span class="badge badge-pill badge-primary text-uppercase" style="font-size: 1em;">Rising</span>
-                        <span class="badge badge-pill badge-success text-uppercase" style="font-size: 1em;">Recommended</span>
-                        <span class="badge badge-pill badge-danger text-uppercase" style="font-size: 1em;">Safe</span>
                     </div>
                 </div>
             </div>
