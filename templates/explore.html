@@ -35,7 +35,8 @@
                 <div style="margin-bottom: 1.5em;">
                     <div class="card shadow">
                         <div class="card-body">
-                            {{ material }}
+                            <a href="{{ material.formattedUrl }}" target="_blank"><h2 class="display-4 mb-0">{{ material.title }}</h2></a>
+                            <p>{{ material.snippet }}</p>
                         </div>
                     </div>
                 </div>

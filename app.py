@@ -3,6 +3,7 @@ from flask import request, jsonify, redirect, url_for, render_template
 import pandas as pd
 import re
 from googleapiclient.discovery import build
+import requests
 
 my_api_key = "AIzaSyCK6ggQxTBGVDUe2AhiivaU5fK0pgREjoE"
 YT_SEARCH_ID = "9c71e23e36e197d73"
@@ -26,6 +27,19 @@ def get_urls(search_term, cse=YT_SEARCH_ID):
         urls.append(url)
     return urls
 
+def get_materials(search_term, cse=YT_SEARCH_ID):
+    
+    query = search_term
+    # using the first page
+    page = 1
+    # constructing the URL
+    # doc: https://developers.google.com/custom-search/v1/using_rest
+    # calculating start, (page=2) => (start=11), (page=3) => (start=21)
+    start = (page - 1) * 10 + 1
+    url = f"https://www.googleapis.com/customsearch/v1?key={my_api_key}&cx={YT_SEARCH_ID}&q={query}"
+    data = requests.get(url).json()
+    search_items = data.get("items")[:1]
+    return search_items
 
 # create url for youtube search based on parsed query
 def generate_youtube_url(split_query):
@@ -72,16 +86,21 @@ def results(query=None):
         # find the top 5 common roles 
         #rolesFreqInCity.sort(reverse = True)
 
-        print(rolesFreqInCity)
-
         sortedVals = sorted(rolesFreqInCity.items(), key=lambda i: i[1], reverse=True)
         top5Roles = sortedVals[:5]
-        print(top5Roles[0][0])
+        
+        sum_of_top5 = 0
+        for role in top5Roles:
+            for i in range (len(jobsInCity)):
+                if (type(jobsInCity[i]['Role']) == str) and role[0] in jobsInCity[i]['Role']:
+                    sum_of_top5 += 1
+            
 
         results = []
         for role in top5Roles:
             sum = 0
             valid = 0
+
             for i in range (len(jobsInCity)):
                 # print(data.iloc[i]['Job Title'])
                 # print(data.iloc[i]['Location'])
@@ -112,7 +131,8 @@ def results(query=None):
                         # valid += 1
                         # clean it, check if number, valid += 1
                         # sum += salary
-            result = {"role":role[0], "num":role[1], "avg":avgSal}
+            print(sum_of_top5)
+            result = {"role":role[0], "num":role[1], "avg":avgSal, "popularity":int(100*role[1]/sum_of_top5)}
             results.append(result)
 
         # roleTitles = []
@@ -147,12 +167,19 @@ def results(query=None):
     else:
         return redirect((url_for('splash')))
     
+    
+def most_popular_skills(skills_dict, top=8):
+    sortedSkills = sorted(skills_dict.items(), key=lambda i: i[1], reverse=True)
+    topSkills = sortedSkills[:top]
+    return topSkills
+    
 @app.route('/explore/<query>/<focus>')
 def explore(query=None, focus=None):
     if query is not None and focus is not None:
         # breh
         
         query_jobs = []
+        skills_dict = {}
         city = query.capitalize()
         for i in range (len(data)):
             if city in data.iloc[i]['Location'] and focus in data.iloc[i]['Role']:
@@ -160,6 +187,13 @@ def explore(query=None, focus=None):
                 skills = raw_skills.replace('[','')
                 skills = skills.replace(']','')
                 skills = skills.replace('\'', '')
+                skills_split = skills.split(', ')
+                for skill in skills_split:
+                    if skill in skills_dict:
+                        skills_dict[skill] += 1
+                    else:
+                        skills_dict[skill] = 1
+                    
                 job = {"title":data.iloc[i]["Job Title"],
                        "location":city,
                        "pay": data.iloc[i]['Job Salary'],
@@ -168,7 +202,15 @@ def explore(query=None, focus=None):
                 if len(query_jobs) > 4:
                     break
         
-        materials = ["YT 123","Khan","blah"]
+        materials = []
+        popular_skills = most_popular_skills(skills_dict)
+        # print(popular_skills)
+        # popular_skills = ['PHP']
+        for skill in popular_skills:
+            materials += get_materials(skill[0])
+            
+        # print(materials)
+        
         return render_template('explore.html', 
                                query=query.capitalize(), 
                                focus=focus, 
