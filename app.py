@@ -1,8 +1,9 @@
 from flask import Flask
 from flask import request, jsonify, redirect, url_for, render_template
-import pandas
+import pandas as pd
 
 app = Flask(__name__)
+data = pd.read_csv('FilteredData.csv')
 
 @app.route('/')
 def splash():
@@ -20,6 +21,11 @@ def search():
 def results(query=None):
     if query is not None:
         # breh
+        # need to match cities info with our query value
+        
+        # we need to find the most frequent jobs with appropriate city match
+
+
         results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
         return render_template('results.html', query=query.capitalize(), results=results)
     else:
