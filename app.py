@@ -88,9 +88,12 @@ def results(query=None):
         
         # salaries = []
         # for i in range(len(jobsInCity)):
+        
+        # result will be of form
+        # {"role":____, "num":____, "avg_pay":______ }
             
 
-        results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
+        results = ["Textiles Manager", "Supply Chain Analyst", "Software Developer"]
         return render_template('results.html', query=query.capitalize(), results=results)
     else:
         return redirect((url_for('splash')))
@@ -99,7 +102,24 @@ def results(query=None):
 def explore(query=None, focus=None):
     if query is not None and focus is not None:
         # breh
-        results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
-        return render_template('explore.html', query=query.capitalize(), focus=focus)
+        
+        query_jobs = []
+        city = query.capitalize()
+        for i in range (len(data)):
+            if city in data.iloc[i]['Location'] and focus in data.iloc[i]['Role']:
+                job = {"title":data.iloc[i]["Job Title"],
+                       "location":city,
+                       "pay": data.iloc[i]['Job Salary'],
+                       "skills":data.iloc[i]["Key Skills"]}
+                query_jobs.append(job)
+                if len(query_jobs) > 4:
+                    break
+        
+        materials = ["YT 123","Khan","blah"]
+        return render_template('explore.html', 
+                               query=query.capitalize(), 
+                               focus=focus, 
+                               jobs=query_jobs, 
+                               materials=materials)
     else:
         return redirect((url_for('results', query=query)))
