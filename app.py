@@ -17,10 +17,19 @@ def search():
 
 @app.route('/results/')
 @app.route('/results/<query>')
-def results(query=None, advanced=True):
+def results(query=None):
     if query is not None:
         # breh
         results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
         return render_template('results.html', query=query.capitalize(), results=results)
     else:
-        return "no query"
+        return redirect((url_for('splash')))
+    
+@app.route('/explore/<query>/<focus>')
+def explore(query=None, focus=None):
+    if query is not None and focus is not None:
+        # breh
+        results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
+        return render_template('explore.html', query=query.capitalize(), focus=focus)
+    else:
+        return redirect((url_for('results', query=query)))
