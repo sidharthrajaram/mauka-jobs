@@ -56,9 +56,9 @@ def results(query=None):
         # need to match cities info with our query value
         for i in range (len(data)):
             if query in data.iloc[i]['Location']:
-                jobsInCity.append(df.iloc[i])
+                jobsInCity.append(data.iloc[i])
         # we need to find the most frequent jobs with appropriate city match
-        rolesInCity = []
+        rolesInCity = {}
         for i in range (len(jobsInCity)):
             if (jobsInCity[i]['Role'] in rolesInCity):
                 rolesInCity[jobsInCity[i]['Role']] += 1
@@ -66,8 +66,13 @@ def results(query=None):
                 rolesInCity[jobsInCity[i]['Role']] = 1
 
         # find the top 5 common roles 
-        rolesInCity.sort(reverse = True)
-        top5Roles = rolesInCity[:5]
+        #rolesInCity.sort(reverse = True)
+
+        # print(rolesInCity)
+
+        sortedVals = sorted(rolesInCity.items(), key=lambda i: i[1], reverse=True)
+        top5Roles = sortedVals[:5]
+        print(top5Roles)
 
         # find the number of jobs available to each role in the city
         # jobs = []
