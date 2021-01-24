@@ -117,11 +117,14 @@ def results(query=None):
             avg = "Not available"
             if valid_salaries > 0:
                 avg = int(sum/valid_salaries)
+                avg = "INR " + str(avg)
             if sum_of_top5 > 0:
                 popularity = int(100*role[1]/sum_of_top5)
             
             if popularity < 33:
                 popularity += 30
+                
+            
             
             result = {"role":role[0], "num":role[1], "avg":avg, "popularity":popularity}
             results.append(result)
