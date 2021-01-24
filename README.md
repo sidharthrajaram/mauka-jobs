@@ -5,6 +5,9 @@
   <img src="/Images/2.png" width="45%" /> 
 </p>
 
+With a concise and transparent breakdown of popular job roles in a local area, Mauka hopes to help individuals make the right first step towards employment and economic stability!
+
+
 ## Inspiration
 
 As a result of the COVID-19 pandemic, it is estimated that the unemployment rate in the world has massively risen especially in developing nations. Additionally, after researching solutions that assist in finding job opportunities catering to users in developing nations, we found some current solutions to be confusing to navigate. With this rising problem in mind, our team was hoping to devise a solution to assist the unemployed in developing countries through Mauka. To help that have lost their job, we decided to only have those roles which were entry level, so that people could use the resources to learn on their own time, and then apply to that specific role.
