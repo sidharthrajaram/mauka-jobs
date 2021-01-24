@@ -30,12 +30,12 @@ def results(query=None):
 
 
 
-#         rolesInCity = {}
+#         rolesFreqInCity = {}
 # for i in range (len(jobsInCity)):
-#     if (jobsInCity[i]['Role'] in rolesInCity):
-#         rolesInCity[jobsInCity[i]['Role']] += 1
+#     if (jobsInCity[i]['Role'] in rolesFreqInCity):
+#         rolesFreqInCity[jobsInCity[i]['Role']] += 1
 #     else:
-#         rolesInCity[jobsInCity[i]['Role']] = 1
+#         rolesFreqInCity[jobsInCity[i]['Role']] = 1
 
 
 # role = "Software Developer"
@@ -47,7 +47,7 @@ def results(query=None):
 
 # jobs is all the jobs of the chosen role in the chosen city
 
-#rolesInCity is a list of all the roles in the chosen city
+#rolesFreqInCity is a list of all the roles in the chosen city
 
 
 #jobsInCity is a list of all the jobs in the city
@@ -55,24 +55,48 @@ def results(query=None):
         # breh
         # need to match cities info with our query value
         for i in range (len(data)):
-            if query in data.iloc[i]['Location']:
+            if query.lower() in data.iloc[i]['Location'].lower():
                 jobsInCity.append(data.iloc[i])
         # we need to find the most frequent jobs with appropriate city match
-        rolesInCity = {}
+        rolesFreqInCity = {}
         for i in range (len(jobsInCity)):
-            if (jobsInCity[i]['Role'] in rolesInCity):
-                rolesInCity[jobsInCity[i]['Role']] += 1
+            if (jobsInCity[i]['Role'] in rolesFreqInCity):
+                rolesFreqInCity[jobsInCity[i]['Role']] += 1
             else:
-                rolesInCity[jobsInCity[i]['Role']] = 1
+                rolesFreqInCity[jobsInCity[i]['Role']] = 1
 
         # find the top 5 common roles 
-        #rolesInCity.sort(reverse = True)
+        #rolesFreqInCity.sort(reverse = True)
 
-        # print(rolesInCity)
+        print(rolesFreqInCity)
 
-        sortedVals = sorted(rolesInCity.items(), key=lambda i: i[1], reverse=True)
+        sortedVals = sorted(rolesFreqInCity.items(), key=lambda i: i[1], reverse=True)
         top5Roles = sortedVals[:5]
-        print(top5Roles)
+        print(top5Roles[0][0])
+
+        results = []
+        for role in top5Roles:
+            sum = 0
+            valid = 0
+            for i in range (len(jobsInCity)):
+                # print(data.iloc[i]['Job Title'])
+                # print(data.iloc[i]['Location'])
+                # print(type(data.iloc[i]['Role']))
+                if (type(jobsInCity[i]['Role']) == str):
+                    if role[0] in jobsInCity[i]['Role']:
+                        raw = jobsInCity[i]['Job Salary']
+                        
+                        # clean it, check if number, valid += 1
+                        # sum += salary
+            result = {"role":role[0], "num":role[1], "avg":323}
+            results.append(result)
+
+        # roleTitles = []
+        # roleCounts = []
+
+        # for i in range(len(top5Roles)):
+        #     roleTitles.append()
+        #     roleCounts.append()
 
         # find the number of jobs available to each role in the city
         # jobs = []
@@ -94,7 +118,7 @@ def results(query=None):
         # results.append(result)
             
 
-        results = ["Textiles Manager", "Supply Chain Analyst", "Software Developer"]
+        
         return render_template('results.html', query=query.capitalize(), results=results)
     else:
         return redirect((url_for('splash')))
