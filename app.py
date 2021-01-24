@@ -113,7 +113,17 @@ def results(query=None):
                             valid_salaries += 1
                         
             print(sum_of_top5)
-            result = {"role":role[0], "num":role[1], "avg":int(sum/valid_salaries), "popularity":int(100*role[1]/sum_of_top5)}
+            popularity = 20
+            avg = "Not available"
+            if valid_salaries > 0:
+                avg = int(sum/valid_salaries)
+            if sum_of_top5 > 0:
+                popularity = int(100*role[1]/sum_of_top5)
+            
+            if popularity < 33:
+                popularity += 30
+            
+            result = {"role":role[0], "num":role[1], "avg":avg, "popularity":popularity}
             results.append(result)
 
         return render_template('results.html', query=query.capitalize(), results=results)
