@@ -198,12 +198,12 @@ def explore(query=None, focus=None):
         
         materials = []
         popular_skills = most_popular_skills(skills_dict)
-        print(popular_skills)
+        # print(popular_skills)
         # popular_skills = ['PHP']
         for skill in popular_skills:
             materials += get_materials(skill[0])
             
-        print(materials)
+        # print(materials)
         
         return render_template('explore.html', 
                                query=query.capitalize(), 
