@@ -54,7 +54,7 @@ def results(query=None):
         jobsInCity = []
         # breh
         # need to match cities info with our query value
-        for(i in range(len(data))):
+        for i in range (len(data)):
             if query in data.iloc[i]['Location']:
                 jobsInCity.append(df.iloc[i])
         # we need to find the most frequent jobs with appropriate city match
