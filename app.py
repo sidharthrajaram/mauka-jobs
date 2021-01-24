@@ -99,7 +99,7 @@ def results(query=None):
         results = []
         for role in top5Roles:
             sum = 0
-            valid = 0
+            valid_salaries = 0
 
             for i in range (len(jobsInCity)):
                 # print(data.iloc[i]['Job Title'])
@@ -107,32 +107,13 @@ def results(query=None):
                 # print(type(data.iloc[i]['Role']))
                 if (type(jobsInCity[i]['Role']) == str):
                     if role[0] in jobsInCity[i]['Role']:
-                        raw = jobsInCity[i]['Job Salary']
-                        avgSal = 0
-                        split = raw.split('-')
-                        #avgSal = re.sub('[^0-9]','', split[0])
-                        avgSal = split[0].replace(',', '')
-                        avgSal = avgSal.replace(' ', '')
-
-                        # if len(split) > 1:
-
-                        #     avgSal = (float(re.sub('[^0-9]','', split[0])) + float(re.sub('[^0-9]','', split[1]))) / 2
-                        # else:
-                        #     avgSal = float(re.sub('[^0-9]','', split[0]))
-                        # endSalRaw = raw.split('-')[1]
-                        # startSalRaw = re.sub('[^0-9]','', startSalRaw)
-                        # startSal = int(startSalRaw)
-                        # endSalRaw = re.sub('[^0-9]','', endSalRaw)
-                        # endSal = int(endSalRaw)
-                        # avgSal = (startSal + endSal) / 2
-                        # print(avgSal)
-                        # clean = re.sub('[^0-9]','', raw)
-                        #print(clean)
-                        # valid += 1
-                        # clean it, check if number, valid += 1
-                        # sum += salary
+                        salary = jobsInCity[i]['Job Salary']
+                        if salary > 0:
+                            sum += salary
+                            valid_salaries += 1
+                        
             print(sum_of_top5)
-            result = {"role":role[0], "num":role[1], "avg":avgSal, "popularity":int(100*role[1]/sum_of_top5)}
+            result = {"role":role[0], "num":role[1], "avg":int(sum/valid_salaries), "popularity":int(100*role[1]/sum_of_top5)}
             results.append(result)
 
         # roleTitles = []
