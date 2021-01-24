@@ -90,7 +90,8 @@ def results(query=None):
         # for i in range(len(jobsInCity)):
         
         # result will be of form
-        # {"role":____, "num":____, "avg_pay":______ }
+        # result = {"role":____, "num":____, "avg_pay":______ }
+        # results.append(result)
             
 
         results = ["Textiles Manager", "Supply Chain Analyst", "Software Developer"]
