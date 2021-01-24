@@ -87,7 +87,7 @@ def results(query=None):
         #rolesFreqInCity.sort(reverse = True)
 
         sortedVals = sorted(rolesFreqInCity.items(), key=lambda i: i[1], reverse=True)
-        top5Roles = sortedVals[:5]
+        top5Roles = sortedVals[:8]
         
         sum_of_top5 = 0
         for role in top5Roles:
