@@ -174,10 +174,16 @@ def explore(query=None, focus=None):
                         skills_dict[skill] += 1
                     else:
                         skills_dict[skill] = 1
+                        
+                pay = data.iloc[i]['Job Salary']
+                if int(pay) > 0:
+                    pay = "INR " + str(pay)
+                else:
+                    pay = "Not available"
                     
                 job = {"title":data.iloc[i]["Job Title"],
                        "location":city,
-                       "pay": data.iloc[i]['Job Salary'],
+                       "pay": pay,
                        "skills":skills}
                 query_jobs.append(job)
                 if len(query_jobs) > 4:
