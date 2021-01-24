@@ -1,2 +1,72 @@
-{{ query }}
-{{ focus }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Stuff
+  </title>
+
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/argon-design-system.css') }}">
+  <link href="./assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
+
+  <style>
+      body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+  </style>
+</head>
+
+<body class="index-page">
+<div class="wrapper">
+    <div class="section section-components pb-0" id="section-components">
+    <div class="container">
+
+        <div>
+            <a href="/results/{{ query }}" class="btn btn-outline-primary">Back</a>
+        </div>
+        
+
+        <div style="margin-top: 1em;">
+        {% if jobs %}
+            <h1>Hiring for <b>{{ focus }}</b> in <b>{{ query }}</b></h1>
+            {% for job in jobs %}
+            <div style="margin-bottom: 1.5em;">
+                <div class="card shadow">
+                    <div class="card-body">      
+                        {{ job }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h1>No jobs.</h1>
+        {% endif %}
+
+
+        <div style="margin-top: 1em;">
+            {% if materials %}
+                <h1>Start learning now</h1>
+                {% for material in materials %}
+                <div style="margin-bottom: 1.5em;">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            {{ material }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h1>No material.</h1>
+            {% endif %}
+
+
+        </div>
+
+    </div>
+    </div>
+</div>
+</body>
+
+</html>
