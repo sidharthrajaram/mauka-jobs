@@ -35,7 +35,12 @@ def results(query=None):
 def explore(query=None, focus=None):
     if query is not None and focus is not None:
         # breh
-        results = ["Textiles Manager", "Supply Chain Analyst", "Telemarketer"]
-        return render_template('explore.html', query=query.capitalize(), focus=focus)
+        query_jobs = ["Job 1", "Job 2", "Job 3"]
+        materials = ["YT 123","Khan","blah"]
+        return render_template('explore.html', 
+                               query=query.capitalize(), 
+                               focus=focus, 
+                               jobs=query_jobs, 
+                               materials=materials)
     else:
         return redirect((url_for('results', query=query)))
