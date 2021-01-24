@@ -153,10 +153,14 @@ def explore(query=None, focus=None):
         city = query.capitalize()
         for i in range (len(data)):
             if city in data.iloc[i]['Location'] and focus in data.iloc[i]['Role']:
+                raw_skills = data.iloc[i]["Key Skills"]
+                skills = raw_skills.replace('[','')
+                skills = skills.replace(']','')
+                skills = skills.replace('\'', '')
                 job = {"title":data.iloc[i]["Job Title"],
                        "location":city,
                        "pay": data.iloc[i]['Job Salary'],
-                       "skills":data.iloc[i]["Key Skills"]}
+                       "skills":skills}
                 query_jobs.append(job)
                 if len(query_jobs) > 4:
                     break

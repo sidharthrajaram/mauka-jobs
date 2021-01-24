@@ -26,29 +26,11 @@
         <div>
             <a href="/results/{{ query }}" class="btn btn-outline-primary">Back</a>
         </div>
-        
-
-        <div style="margin-top: 1em;">
-        {% if jobs %}
-            <h1>Hiring for <b>{{ focus }}</b> in <b>{{ query }}</b></h1>
-            {% for job in jobs %}
-            <div style="margin-bottom: 1.5em;">
-                <div class="card shadow">
-                    <div class="card-body">      
-                        <h2 class="display3 mb-0">{{ job.title }}</h2>
-                        
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <h1>No jobs.</h1>
-        {% endif %}
 
 
         <div style="margin-top: 1em;">
             {% if materials %}
-                <h1>Start learning now</h1>
+                <h1>Start learning for <b>{{ focus }}</b> in <b>{{ query }}</b></h1>
                 {% for material in materials %}
                 <div style="margin-bottom: 1.5em;">
                     <div class="card shadow">
@@ -61,9 +43,26 @@
             {% else %}
                 <h1>No material.</h1>
             {% endif %}
-
-
         </div>
+
+        <div style="margin-top: 1em;">
+            {% if jobs %}
+                <h1>Hiring for <b>{{ focus }}</b> in <b>{{ query }}</b></h1>
+                {% for job in jobs %}
+                <div style="margin-bottom: 1.5em;">
+                    <div class="card shadow">
+                        <div class="card-body">      
+                            <h2 class="display-4 mb-0">{{ job.title }}</h2>
+                            <h4>{{ job.pay }}</h4>
+                            <p><b>Relevant skills: </b>{{ job.skills }}</p>
+                            <button type="button" class="btn btn-primary">Apply</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h1>No jobs.</h1>
+            {% endif %}
 
     </div>
     </div>
