@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request, jsonify, redirect, url_for, render_template
 import pandas as pd
+import re
 
 app = Flask(__name__)
 data = pd.read_csv('FilteredData.csv')
@@ -85,10 +86,30 @@ def results(query=None):
                 if (type(jobsInCity[i]['Role']) == str):
                     if role[0] in jobsInCity[i]['Role']:
                         raw = jobsInCity[i]['Job Salary']
-                        
+                        avgSal = 0
+                        split = raw.split('-')
+                        #avgSal = re.sub('[^0-9]','', split[0])
+                        avgSal = split[0].replace(',', '')
+                        avgSal = avgSal.replace(' ', '')
+
+                        # if len(split) > 1:
+
+                        #     avgSal = (float(re.sub('[^0-9]','', split[0])) + float(re.sub('[^0-9]','', split[1]))) / 2
+                        # else:
+                        #     avgSal = float(re.sub('[^0-9]','', split[0]))
+                        # endSalRaw = raw.split('-')[1]
+                        # startSalRaw = re.sub('[^0-9]','', startSalRaw)
+                        # startSal = int(startSalRaw)
+                        # endSalRaw = re.sub('[^0-9]','', endSalRaw)
+                        # endSal = int(endSalRaw)
+                        # avgSal = (startSal + endSal) / 2
+                        print(avgSal)
+                        # clean = re.sub('[^0-9]','', raw)
+                        #print(clean)
+                        # valid += 1
                         # clean it, check if number, valid += 1
                         # sum += salary
-            result = {"role":role[0], "num":role[1], "avg":323}
+            result = {"role":role[0], "num":role[1], "avg":avgSal}
             results.append(result)
 
         # roleTitles = []
