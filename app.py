@@ -116,34 +116,6 @@ def results(query=None):
             result = {"role":role[0], "num":role[1], "avg":int(sum/valid_salaries), "popularity":int(100*role[1]/sum_of_top5)}
             results.append(result)
 
-        # roleTitles = []
-        # roleCounts = []
-
-        # for i in range(len(top5Roles)):
-        #     roleTitles.append()
-        #     roleCounts.append()
-
-        # find the number of jobs available to each role in the city
-        # jobs = []
-        # count = 0
-        # role = top5Roles[count]
-
-        # for i in range (len(top5Roles)):
-        #     if role in jobsInCity[i]['Role']:
-        #         count += 1
-        #         jobs.append(jobsInCity[i])
-        
-        # find the average salary for each role in the city
-        
-        # salaries = []
-        # for i in range(len(jobsInCity)):
-        
-        # result will be of form
-        # result = {"role":____, "num":____, "avg_pay":______ }
-        # results.append(result)
-            
-
-        
         return render_template('results.html', query=query.capitalize(), results=results)
     else:
         return redirect((url_for('splash')))
@@ -191,12 +163,10 @@ def explore(query=None, focus=None):
         
         materials = []
         popular_skills = most_popular_skills(skills_dict)
-        # print(popular_skills)
-        # popular_skills = ['PHP']
+
         for skill in popular_skills:
             materials += get_materials(skill[0])
             
-        # print(materials)
         
         return render_template('explore.html', 
                                query=query.capitalize(), 
