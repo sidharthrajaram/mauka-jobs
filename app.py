@@ -86,16 +86,21 @@ def results(query=None):
         # find the top 5 common roles 
         #rolesFreqInCity.sort(reverse = True)
 
-        print(rolesFreqInCity)
-
         sortedVals = sorted(rolesFreqInCity.items(), key=lambda i: i[1], reverse=True)
         top5Roles = sortedVals[:5]
-        print(top5Roles[0][0])
+        
+        sum_of_top5 = 0
+        for role in top5Roles:
+            for i in range (len(jobsInCity)):
+                if (type(jobsInCity[i]['Role']) == str) and role[0] in jobsInCity[i]['Role']:
+                    sum_of_top5 += 1
+            
 
         results = []
         for role in top5Roles:
             sum = 0
             valid = 0
+
             for i in range (len(jobsInCity)):
                 # print(data.iloc[i]['Job Title'])
                 # print(data.iloc[i]['Location'])
@@ -126,7 +131,8 @@ def results(query=None):
                         # valid += 1
                         # clean it, check if number, valid += 1
                         # sum += salary
-            result = {"role":role[0], "num":role[1], "avg":avgSal}
+            print(sum_of_top5)
+            result = {"role":role[0], "num":role[1], "avg":avgSal, "popularity":int(100*role[1]/sum_of_top5)}
             results.append(result)
 
         # roleTitles = []

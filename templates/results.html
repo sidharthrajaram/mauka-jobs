@@ -45,11 +45,11 @@
                                 <span style="font-size: 1em;">Demand in your area</span>
                               </div>
                               <div class="progress-percentage">
-                                <span>60%</span>
+                                <span>{{ result.popularity }}%</span>
                               </div>
                             </div>
                             <div class="progress">
-                              <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                              <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ result.popularity }}%;"></div>
                             </div>
                         </div>
                         <div style="margin-top: 1em;">
