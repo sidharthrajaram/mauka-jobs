@@ -1,8 +1,8 @@
 # Mauka Jobs
 
 <p align="middle">
-  <img src="/Image/1.png" width="45%" />
-  <img src="/Image/2.png" width="45%" /> 
+  <img src="/Images/1.png" width="45%" />
+  <img src="/Images/2.png" width="45%" /> 
 </p>
 
 ## Inspiration
