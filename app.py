@@ -2,9 +2,37 @@ from flask import Flask
 from flask import request, jsonify, redirect, url_for, render_template
 import pandas as pd
 import re
+from googleapiclient.discovery import build
+
+my_api_key = "AIzaSyCK6ggQxTBGVDUe2AhiivaU5fK0pgREjoE"
+YT_SEARCH_ID = "9c71e23e36e197d73"
 
 app = Flask(__name__)
 data = pd.read_csv('FilteredData.csv')
+
+# google custom search engine method
+def search(search_term, api_key, cse_id, **kwargs):
+    service = build("customsearch", "v1", developerKey=api_key)
+    res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
+    return res['items']
+
+
+# retrieves cleaned up urls from google search or YT search depending on cse ID parameter
+def get_urls(search_term, cse=YT_SEARCH_ID):
+    results = search(search_term, my_api_key, cse, num=3)
+    urls = []
+    for result in results:
+        url = result["formattedUrl"]
+        urls.append(url)
+    return urls
+
+
+# create url for youtube search based on parsed query
+def generate_youtube_url(split_query):
+    query = '+'.join(split_query)
+    url = str(get_urls(query, cse=YT_SEARCH_ID)[1])
+    return url
+
 
 @app.route('/')
 def splash():
@@ -22,34 +50,9 @@ def search():
 def results(query=None):
     if query is not None:
 
-
-#         jobsInCity = []
-# city = "Noida"
-# for i in range (len(df)):
-#     if city in df.iloc[i]['Location']:
-#         jobsInCity.append(df.iloc[i]) 
-
-
-
-#         rolesFreqInCity = {}
-# for i in range (len(jobsInCity)):
-#     if (jobsInCity[i]['Role'] in rolesFreqInCity):
-#         rolesFreqInCity[jobsInCity[i]['Role']] += 1
-#     else:
-#         rolesFreqInCity[jobsInCity[i]['Role']] = 1
-
-
-# role = "Software Developer"
-# jobs = []
-# for i in range (len(jobsInCity)):
-#     if role in jobsInCity[i]['Role']:
-#         jobs.append(jobsInCity[i])
-
-
 # jobs is all the jobs of the chosen role in the chosen city
 
 #rolesFreqInCity is a list of all the roles in the chosen city
-
 
 #jobsInCity is a list of all the jobs in the city
         jobsInCity = []
@@ -103,7 +106,7 @@ def results(query=None):
                         # endSalRaw = re.sub('[^0-9]','', endSalRaw)
                         # endSal = int(endSalRaw)
                         # avgSal = (startSal + endSal) / 2
-                        print(avgSal)
+                        # print(avgSal)
                         # clean = re.sub('[^0-9]','', raw)
                         #print(clean)
                         # valid += 1
