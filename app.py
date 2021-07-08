@@ -5,8 +5,8 @@ import re
 from googleapiclient.discovery import build
 import requests
 
-my_api_key = "AIzaSyCK6ggQxTBGVDUe2AhiivaU5fK0pgREjoE"
-YT_SEARCH_ID = "9c71e23e36e197d73"
+my_api_key = "<your_key>"
+YT_SEARCH_ID = "<your_custom_search_engine_id"
 
 app = Flask(__name__)
 data = pd.read_csv('FilteredData.csv')
